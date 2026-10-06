@@ -1,0 +1,223 @@
+/* Todos os @import precisam vir antes de qualquer outra regra.
+   Ordem: tema GNOME -> paleta + mapeamento Gruvbox (este arquivo vence por vir depois). */
+@import "firefox-gnome-theme/userContent.css";
+@import url("gruvbox.css");
+
+/*******************************************************************************
+ * USERCONTENT.CSS - GRUVBOX VÍVIDO (WCAG)
+ * Páginas internas (about:), Nova Aba e componentes do Firefox
+ * Requer gruvbox.css na mesma pasta (chrome/). Firefox 115+
+ *
+ * ATENÇÃO: este arquivo vale para TODOS os sites. Por isso tudo abaixo fica
+ * dentro de @-moz-document e as variáveis compartilhadas usam o prefixo --gb-.
+ ******************************************************************************/
+
+
+/* ==========================================================================
+   1. PÁGINAS DO SISTEMA (lista explícita: não afeta about:reader nem about:blank)
+   ========================================================================== */
+@-moz-document
+  url-prefix("about:preferences"),
+  url-prefix("about:addons"),
+  url-prefix("about:config"),
+  url-prefix("about:downloads"),
+  url-prefix("about:debugging"),
+  url-prefix("about:logins"),
+  url-prefix("about:policies"),
+  url-prefix("about:support"),
+  url-prefix("about:profiles"),
+  url-prefix("about:performance"),
+  url-prefix("about:telemetry"),
+  url-prefix("about:webrtc"),
+  url-prefix("about:newtab"),
+  url-prefix("about:home") {
+
+  :root {
+    scrollbar-width: thin !important;
+    scrollbar-color: var(--gb-hover) var(--gb-bg) !important;
+
+    /* Fundos */
+    --in-content-page-background: var(--gb-bg) !important;
+    --background-color-canvas: var(--gb-bg) !important;
+    --background-color-box: var(--gb-surface) !important;
+    --background-color-information: var(--gb-surface) !important;
+    --in-content-box-background: var(--gb-surface) !important;
+    --in-content-box-info-background: var(--gb-surface) !important;
+
+    /* Texto */
+    --in-content-page-color: var(--gb-text) !important;
+    --in-content-deemphasized-text: var(--gb-text-muted) !important;
+    --text-color: var(--gb-text) !important;
+
+    /* Links e foco */
+    --link-color: var(--gb-link) !important;
+    --link-color-hover: var(--gb-accent-hover) !important;
+    --link-color-active: var(--gb-accent) !important;
+    --link-color-visited: var(--gb-link-visited) !important;
+    --focus-outline-color: var(--gb-accent) !important;
+    --in-content-focus-outline-color: var(--gb-accent) !important;
+
+    /* Bordas e cards */
+    --in-content-border-color: var(--gb-border-strong) !important;
+    --card-outline-color: var(--gb-border) !important;
+    --card-background: var(--gb-surface) !important;
+
+    /* Acento e botão primário (texto escuro sobre amarelo) */
+    --color-accent-primary: var(--gb-accent) !important;
+    --color-accent-primary-hover: var(--gb-accent-hover) !important;
+    --color-accent-primary-active: var(--gb-accent-active) !important;
+    --color-accent-primary-selected: var(--gb-accent) !important;
+    --button-background-color-primary: var(--gb-accent) !important;
+    --button-background-color-primary-hover: var(--gb-accent-hover) !important;
+    --button-background-color-primary-active: var(--gb-accent-active) !important;
+    --button-text-color-primary: var(--gb-on-accent) !important;
+    --button-text-color-primary-hover: var(--gb-on-accent) !important;
+    --button-text-color-primary-active: var(--gb-on-accent) !important;
+    --button-background-color-primary-disabled: color-mix(in srgb, var(--gb-accent) 30%, var(--gb-bg)) !important;
+
+    /* Botões secundários */
+    --button-background-color-hover: var(--gb-hover) !important;
+    --button-background-color-active: color-mix(in srgb, var(--gb-hover) 80%, black) !important;
+
+    /* Tabelas e campos */
+    --table-background-color: var(--gb-bg) !important;
+    --table-row-background-color-alternate: var(--gb-surface) !important;
+    --input-text-background-color: var(--gb-surface-2) !important;
+    --input-text-color: var(--gb-text) !important;
+
+    /* Aliases legados */
+    --in-content-accent-color: var(--gb-accent) !important;
+    --in-content-accent-color-active: var(--gb-accent-active) !important;
+    --in-content-item-selected: var(--gb-accent) !important;
+    --in-content-item-selected-text: var(--gb-on-accent) !important;
+  }
+
+  html, body {
+    background-color: var(--gb-bg) !important;
+    color: var(--gb-text) !important;
+  }
+
+  ::selection {
+    background-color: var(--gb-selection-bg) !important;
+    color: var(--gb-selection-fg) !important;
+  }
+
+  /* Campos de texto: borda >= 3:1 e foco visível também em alto contraste */
+  input:where([type="search"], [type="text"], [type="password"], [type="email"], [type="url"], [type="number"], [type="tel"]) {
+    background-color: var(--gb-surface-2) !important;
+    color: var(--gb-text) !important;
+    border: 1px solid var(--gb-border-strong) !important;
+    border-radius: 6px !important;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+  }
+
+  input:where([type="search"], [type="text"], [type="password"], [type="email"], [type="url"], [type="number"], [type="tel"]):focus {
+    border-color: var(--gb-accent) !important;
+    box-shadow: 0 0 0 1px var(--gb-accent),
+                0 0 8px color-mix(in srgb, var(--gb-accent) 40%, transparent) !important;
+    outline: 2px solid transparent !important; /* aparece em modo de alto contraste */
+  }
+}
+
+/* ==========================================================================
+   2. NOVA ABA E PÁGINA INICIAL
+   ========================================================================== */
+@-moz-document url-prefix("about:newtab"), url-prefix("about:home") {
+  :root {
+    --newtab-background-color: var(--gb-bg) !important;
+    --newtab-text-primary-color: var(--gb-text) !important;
+    --newtab-card-bg: var(--gb-surface) !important;
+    --newtab-element-hover-color: var(--gb-hover) !important;
+    --newtab-search-icon-color: var(--gb-accent) !important;
+  }
+
+  .top-site-button {
+    border-radius: var(--gnome-button-radius, 8px) !important;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                background-color 0.2s ease,
+                box-shadow 0.25s ease !important;
+  }
+
+  .top-site-button:hover {
+    background-color: var(--gb-hover) !important;
+    transform: translateY(-3px) !important;
+    box-shadow: 0 4px 12px color-mix(in srgb, var(--gb-accent) 25%, transparent) !important;
+  }
+}
+
+/* ==========================================================================
+   3. COMPONENTES ESPECÍFICOS
+   ========================================================================== */
+@-moz-document url-prefix("about:addons") {
+  addon-card, .card {
+    background-color: var(--gb-surface) !important;
+    color: var(--gb-text) !important;
+    border-radius: var(--gnome-card-radius, 8px) !important;
+    border: 1px solid var(--gb-border) !important;
+    transition: border-color 0.2s ease !important;
+  }
+
+  addon-card:hover, .card:hover {
+    border-color: var(--gb-accent) !important;
+  }
+}
+
+@-moz-document url-prefix("about:downloads") {
+  #downloadsListBox:focus > richlistitem[selected] {
+    background-image: none !important;
+    background-color: var(--gb-accent) !important;
+    color: var(--gb-on-accent) !important;
+    outline: none !important;
+  }
+}
+
+@-moz-document url-prefix("about:debugging") {
+  :root {
+    --blue-50: var(--gb-accent) !important;
+    --blue-55: var(--gb-accent) !important;
+    --blue-60: var(--gb-accent) !important;
+    --theme-focus-outline-color: var(--gb-accent) !important;
+    --theme-link-color: var(--gb-link) !important;
+  }
+
+  button.primary, .primary-button {
+    background-color: var(--gb-accent) !important;
+    color: var(--gb-on-accent) !important;
+    border-radius: 6px !important;
+    font-weight: 600 !important;
+  }
+}
+
+@-moz-document url("about:mozilla") {
+  html {
+    background: var(--gb-bg) !important;
+    color: var(--gb-accent) !important;
+  }
+
+  a {
+    color: var(--gb-link) !important;
+  }
+}
+
+/* ==========================================================================
+   4. ACESSIBILIDADE: MOVIMENTO REDUZIDO
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  @-moz-document
+    url-prefix("about:preferences"),
+    url-prefix("about:addons"),
+    url-prefix("about:config"),
+    url-prefix("about:newtab"),
+    url-prefix("about:home") {
+
+    .top-site-button,
+    addon-card, .card,
+    input {
+      transition: none !important;
+    }
+
+    .top-site-button:hover {
+      transform: none !important;
+    }
+  }
+}

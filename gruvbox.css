@@ -1,0 +1,100 @@
+/*******************************************************************************
+ * GRUVBOX.CSS - PALETA COMPARTILHADA (VÍVIDA + WCAG)
+ * Importada por userChrome.css e userContent.css.
+ *
+ * Prefixo --gb-* evita colisão: o userContent.css também vale para sites comuns.
+ * Contrastes calculados (razão WCAG) sobre --gb-bg #1d2021:
+ *   texto 14.5:1 | muted 9.6:1 | accent 10.4:1 | verde 10.7:1 | aqua 10.1:1
+ *   azul 8.8:1 | roxo 7.3:1 | laranja 7.0:1 | vermelho 5.3:1 (todos AA+)
+ *   texto escuro (#1d2021) sobre botão accent: 10.4:1
+ *   borda de controles (#7c6f64): 3.4:1 (mínimo AA p/ componentes de UI = 3:1)
+ ******************************************************************************/
+
+:root {
+  /* --- SUPERFÍCIES (escuras, para as cores vivas "saltarem") --- */
+  --gb-bg:            #1d2021;  /* Gruvbox bg0_h: página / urlbar */
+  --gb-surface:       #282828;  /* Cards e caixas */
+  --gb-surface-2:     #3c3836;  /* Autocomplete e campos de texto */
+  --gb-hover:         #504945;  /* Hover */
+  --gb-border:        #504945;  /* Bordas decorativas */
+  --gb-border-strong: #7c6f64;  /* Bordas de controles (>=3:1) */
+
+  /* --- TEXTO --- */
+  --gb-text:          #fbf1c7;  /* Gruvbox light0 */
+  --gb-text-muted:    #d5c4a1;  /* Gruvbox light2 (>=5:1 até sobre hover) */
+
+  /* --- ACENTO (amarelo vivo) --- */
+  --gb-accent:        #ffc61a;
+  --gb-accent-hover:  #ffd54a;
+  --gb-accent-active: #e5ad10;
+  --gb-on-accent:     #1d2021;  /* Texto sobre fundo accent */
+  --gb-glow:          rgba(255, 198, 26, 0.5);
+
+  /* --- LINKS --- */
+  --gb-link:          #7fd4ff;
+  --gb-link-visited:  #f08fc0;
+
+  /* --- SELEÇÃO DE TEXTO (sólida, sem transparência) --- */
+  --gb-selection-bg:  var(--gb-accent);
+  --gb-selection-fg:  var(--gb-on-accent);
+
+  /* --- STATUS (vívidos, todos >=5:1) --- */
+  --gb-green:         #b8e02a;
+  --gb-aqua:          #6fe0a8;
+  --gb-red:           #ff5a45;
+  --gb-orange:        #ff8a1f;
+  --gb-yellow:        #ffc61a;
+  --gb-purple:        #f08fc0;
+  --gb-blue:          #6ec9f0;
+}
+
+/*******************************************************************************
+ * MAPEAMENTO PARA O firefox-gnome-theme
+ * Sobrescreve as variáveis --gnome-* de theme/colors/*.css (valem em tema claro
+ * e escuro: vêm depois do tema, mesma especificidade). Mantidos do tema:
+ * --gnome-warning-bg, --gnome-card-*, --gnome-shade-color e o roxo da janela
+ * privada. Uso SEM a extensão Adaptive Tab Bar Colour.
+ ******************************************************************************/
+
+:root {
+  /* Cores semânticas (fundos com texto claro por cima: >= 4.5:1) */
+  --gnome-destructive-bg: #cc241d;
+  --gnome-error-bg:       #cc241d;
+  --gnome-success-bg:     #79740e;
+  --gnome-toolbar-star-button: var(--gb-yellow);
+
+  /* Destaque: no tema vem de AccentColor (cor de destaque do sistema).
+     --gnome-accent, seleção e itens selecionados são derivados desta variável. */
+  --gnome-accent-bg: var(--gb-accent);
+  --gnome-tabbar-tab-needs-attetion: var(--gb-blue); /* grafia do tema */
+  --gnome-tabbar-identity-color-turquoise: var(--gb-aqua);
+  --gnome-tabbar-identity-color-pink: color-mix(in srgb, var(--gb-red) 45%, var(--gb-purple));
+
+  /* Janela */
+  --gnome-window-background:            var(--gb-surface);
+  --gnome-window-color:                 var(--gb-text);
+  --gnome-view-background:              var(--gb-bg);
+  --gnome-sidebar-background:           var(--gb-surface-2);
+  --gnome-secondary-sidebar-background: color-mix(in srgb, var(--gb-surface) 60%, var(--gb-surface-2));
+
+  /* Menus e barra de título (headerbar) */
+  --gnome-menu-background:      color-mix(in srgb, var(--gb-surface-2) 80%, var(--gb-hover));
+  --gnome-headerbar-background: var(--gb-surface-2);
+
+  /* Cores de identidade de containers (abas) */
+  --gnome-tabbar-identity-color-blue:   var(--gb-blue);
+  --gnome-tabbar-identity-color-green:  var(--gb-green);
+  --gnome-tabbar-identity-color-yellow: var(--gb-yellow);
+  --gnome-tabbar-identity-color-orange: var(--gb-orange);
+  --gnome-tabbar-identity-color-red:    var(--gb-red);
+  --gnome-tabbar-identity-color-purple: var(--gb-purple);
+
+  /* Nova aba privada */
+  --gnome-private-in-content-page-background: var(--gb-surface);
+}
+
+/* Janela inativa: no tema esse seletor tem mais especificidade, então repetimos */
+:root:-moz-window-inactive {
+  --gnome-sidebar-background:           var(--gb-surface);
+  --gnome-secondary-sidebar-background: color-mix(in srgb, var(--gb-surface) 70%, var(--gb-bg));
+}

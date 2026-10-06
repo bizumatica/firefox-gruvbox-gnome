@@ -1,0 +1,209 @@
+/* Todos os @import precisam vir antes de qualquer outra regra.
+   Ordem: tema GNOME -> paleta + mapeamento Gruvbox (este arquivo vence por vir depois). */
+@import "firefox-gnome-theme/userChrome.css";
+@import url("gruvbox.css");
+
+/*******************************************************************************
+ * USERCHROME.CSS - GRUVBOX VÍVIDO (WCAG)
+ * Gradiente de segurança na URL bar + glow de foco
+ * Requer gruvbox.css na mesma pasta (chrome/). Firefox 115+
+ ******************************************************************************/
+
+
+/* ==========================================================================
+   1. STATUS DE SEGURANÇA (padrão NEUTRO; verde só quando verificado)
+   ========================================================================== */
+:root {
+  --status-current: var(--gb-blue);
+}
+
+#identity-box.verifiedDomain,
+#identity-box.verifiedIdentity {
+  --status-current: var(--gb-green);
+}
+
+#identity-box.certErrorPage,
+#identity-box.certUserOverridden,
+#identity-box.notSecure,
+#identity-box.insecureLoginForms,
+#identity-box.mixedActiveContent {
+  --status-current: var(--gb-red);
+}
+
+#identity-box.mixedDisplayContent,
+#identity-box.mixedDisplayContentLoadedActiveBlocked,
+#identity-box.mixedActiveBlocked,
+#identity-box.weakCipher {
+  --status-current: var(--gb-orange);
+}
+
+#identity-box.extensionPage {
+  --status-current: var(--gb-purple);
+}
+
+#identity-box.chromeUI,
+#identity-box.localResource,
+#identity-box.unknownIdentity {
+  --status-current: var(--gb-blue);
+}
+
+/* ==========================================================================
+   2. CORES NATIVAS DO CAMPO (ícones e texto acompanham o fundo escuro)
+   ========================================================================== */
+#urlbar,
+#searchbar {
+  --toolbar-field-background-color:       var(--gb-bg) !important;
+  --toolbar-field-focus-background-color: var(--gb-bg) !important;
+  --toolbar-field-color:                  var(--gb-text) !important;
+  --toolbar-field-focus-color:            var(--gb-text) !important;
+  --toolbar-field-border-color:           transparent !important;
+  --toolbar-field-focus-border-color:     var(--gb-accent) !important;
+}
+
+/* ==========================================================================
+   3. ESTRUTURA, FOCO E GRADIENTE
+   ========================================================================== */
+#urlbar-background {
+  background-color: var(--gb-bg) !important;
+  border-radius: var(--gnome-entry-radius, 8px) !important;
+  border: 1px solid var(--gb-border) !important;
+  outline: 2px solid transparent; /* visível no modo de alto contraste */
+  transition: box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+#urlbar[focused] > #urlbar-background {
+  border-color: var(--gb-accent) !important;
+  box-shadow: 0 0 0 1px var(--gb-accent),
+              0 0 12px var(--gb-glow),
+              0 0 24px color-mix(in srgb, var(--gb-accent) 25%, transparent) !important;
+}
+
+#urlbar-input-container {
+  position: relative !important;
+  border-radius: var(--gnome-entry-radius, 8px) !important;
+  overflow: hidden !important;
+  background-color: transparent !important;
+}
+
+#urlbar-input-container > * {
+  position: relative;
+  z-index: 1 !important;
+}
+
+#identity-box {
+  position: static !important;
+}
+
+/* Filhos acima do gradiente: ícones não ficam tingidos */
+#identity-box > * {
+  position: relative;
+  z-index: 1;
+}
+
+#identity-box::before {
+  position: absolute !important;
+  display: block;
+  content: "" !important;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 0 !important;
+  opacity: 1 !important;
+  /* Gradiente curto e suave: o texto da URL fica sobre fundo quase escuro
+     (texto creme sobre o pior ponto do gradiente: ~6:1). A barra de 3px
+     na borda esquerda mantém o status bem visível, com contraste alto. */
+  background: linear-gradient(
+    to right,
+    color-mix(in srgb, var(--status-current) 30%, transparent) 0%,
+    transparent 35%
+  ) !important;
+  box-shadow: inset 3px 0 0 var(--status-current) !important;
+  transition: background 0.3s ease-in-out, opacity 0.2s ease-in-out;
+}
+
+:root[customizing] #identity-box::before {
+  opacity: 0 !important;
+}
+
+/* ==========================================================================
+   4. TIPOGRAFIA E CONTRASTE
+   ========================================================================== */
+#urlbar-input,
+.urlbar-input-box,
+.urlbarView-row,
+.urlbarView-title {
+  color: var(--gb-text) !important;
+}
+
+#urlbar-input,
+.urlbarView-url {
+  font-weight: 500 !important;
+}
+
+.urlbarView-url {
+  color: var(--gb-accent) !important;
+}
+
+.urlbarView-action,
+.urlbarView-type-icon,
+#urlbar-input::placeholder {
+  color: var(--gb-text-muted) !important;
+  opacity: 1 !important;
+}
+
+#urlbar-input::selection {
+  background-color: var(--gb-selection-bg) !important;
+  color: var(--gb-selection-fg) !important;
+}
+
+.urlbarView {
+  background-color: var(--gb-surface-2) !important;
+}
+
+.urlbarView-row[selected] {
+  background-color: color-mix(in srgb, var(--gb-accent) 22%, transparent) !important;
+}
+
+/* Botão de extensões (sem opacidade baixa: mantém contraste >= 3:1) */
+#unified-extensions-button {
+  opacity: 0.9 !important;
+  transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+#unified-extensions-button:hover {
+  opacity: 1 !important;
+  transform: scale(1.05);
+}
+
+/* ==========================================================================
+   5. ACESSIBILIDADE: MOVIMENTO REDUZIDO E ALTO CONTRASTE DO SISTEMA
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  #urlbar-background,
+  #identity-box::before,
+  #unified-extensions-button {
+    transition: none !important;
+  }
+
+  #unified-extensions-button:hover {
+    transform: none !important;
+  }
+}
+
+/* Modo de cores forçadas (ex.: Alto Contraste do Windows): o sistema manda */
+@media (forced-colors: active) {
+  #identity-box::before {
+    display: none !important;
+  }
+
+  #urlbar-background {
+    background-color: Canvas !important;
+    border-color: CanvasText !important;
+  }
+
+  #urlbar[focused] > #urlbar-background {
+    outline: 2px solid Highlight;
+    box-shadow: none !important;
+  }
+}
