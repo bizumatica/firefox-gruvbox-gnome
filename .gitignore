@@ -1,0 +1,22 @@
+# Backups e lixo de editor/sistema
+*.bak
+chrome.bak/
+*.swp
+*~
+.DS_Store
+Thumbs.db
+
+# NUNCA versionar dados do perfil do Firefox (senhas, cookies, certificados,
+# permissões, histórico). O repositório é público.
+*.sqlite
+*.sqlite-*
+*.db
+*.db-*
+prefs.js
+logins.json
+key4.db
+cert9.db
+cookies.sqlite
+permissions.sqlite
+sessionstore*
+*.jsonlz4

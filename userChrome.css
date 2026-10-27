@@ -207,3 +207,59 @@
     box-shadow: none !important;
   }
 }
+
+/* ==========================================================================
+   6. BOTÃO DO MOTOR DE BUSCA NA URLBAR (nova aba / barra vazia)
+   Fundo escuro Gruvbox em vez do cinza claro; ícone e seta legíveis.
+   ========================================================================== */
+#urlbar-searchmode-switcher {
+  /* variáveis nativas, restritas a este botão (não afetam o identity-box) */
+  --urlbar-box-bgcolor:          var(--gb-surface-2);
+  --urlbar-box-hover-bgcolor:    var(--gb-hover);
+  --urlbar-box-active-bgcolor:   color-mix(in srgb, var(--gb-hover) 80%, black);
+  --urlbar-box-text-color:       var(--gb-text);
+  --urlbar-box-hover-text-color: var(--gb-text);
+
+  /* variáveis dos botões do Firefox (atravessam o shadow DOM, caso o botão
+     seja um componente moz-button) */
+  --button-background-color:        var(--gb-surface-2);
+  --button-background-color-hover:  var(--gb-hover);
+  --button-background-color-active: color-mix(in srgb, var(--gb-hover) 80%, black);
+  --button-text-color:              var(--gb-text);
+  --button-text-color-hover:        var(--gb-text);
+  --button-border-color:            var(--gb-border-strong);
+
+  background-color: var(--gb-surface-2) !important;
+  color: var(--gb-text) !important;
+  border: 1px solid var(--gb-border-strong) !important;
+  border-radius: var(--gnome-entry-radius, 8px) !important;
+}
+
+/* Parte interna do botão, se ele for um componente com shadow DOM */
+#urlbar-searchmode-switcher::part(button) {
+  background-color: var(--gb-surface-2) !important;
+  color: var(--gb-text) !important;
+}
+
+#urlbar-searchmode-switcher:hover,
+#urlbar-searchmode-switcher[open] {
+  background-color: var(--gb-hover) !important;
+  border-color: var(--gb-accent) !important;
+}
+
+/* Seta (dropmarker) com contraste */
+#urlbar-searchmode-switcher .searchmode-switcher-dropmarker {
+  color: var(--gb-text-muted) !important;
+  fill: var(--gb-text-muted) !important;
+  opacity: 1 !important;
+}
+
+/* OPCIONAL: se algum motor tiver ícone escuro/monocromático (ex.: GitHub,
+   Wikipédia) e sumir no fundo escuro, descomente para pôr um círculo creme só
+   atrás do ícone:
+#urlbar-searchmode-switcher .searchmode-switcher-icon {
+  background-color: var(--gb-text) !important;
+  border-radius: 50% !important;
+  padding: 2px !important;
+}
+*/

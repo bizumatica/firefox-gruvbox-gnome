@@ -33,6 +33,7 @@
   url-prefix("about:home") {
 
   :root {
+    color-scheme: dark !important; /* botões e controles nativos usam as variantes escuras (texto claro) */
     scrollbar-width: thin !important;
     scrollbar-color: var(--gb-hover) var(--gb-bg) !important;
 
