@@ -263,3 +263,18 @@
   padding: 2px !important;
 }
 */
+
+/* ==========================================================================
+   7. BOTÕES DE AÇÃO SUGERIDA DO TEMA GNOME
+   O tema fixa "color: white !important" nesses botões (parts/buttons.css),
+   o que dá ~1,7:1 de contraste sobre o amarelo. Mesmos seletores do tema,
+   para empatar a especificidade; este arquivo vem depois, então vence.
+   Texto escuro sobre o amarelo: 10,4:1.
+   ========================================================================== */
+#appMenu-popup .panel-banner-item[notificationid="update-restart"],
+button.popup-notification-primary-button:not(#hack),
+#editBookmarkPanelDoneButton,
+#tracking-action-block,
+.button.connect-device {
+  color: var(--gb-on-accent) !important;
+}

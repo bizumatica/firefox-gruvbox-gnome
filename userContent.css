@@ -29,12 +29,12 @@
   url-prefix("about:performance"),
   url-prefix("about:telemetry"),
   url-prefix("about:webrtc"),
+  url-prefix("about:processes"),
   url-prefix("about:newtab"),
   url-prefix("about:home") {
 
   :root {
     color-scheme: dark !important; /* botões e controles nativos usam as variantes escuras (texto claro) */
-    scrollbar-width: thin !important;
     scrollbar-color: var(--gb-hover) var(--gb-bg) !important;
 
     /* Fundos */
@@ -108,7 +108,7 @@
     background-color: var(--gb-surface-2) !important;
     color: var(--gb-text) !important;
     border: 1px solid var(--gb-border-strong) !important;
-    border-radius: 6px !important;
+    border-radius: var(--gnome-entry-radius, 6px) !important;
     transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
   }
 
@@ -184,7 +184,7 @@
   button.primary, .primary-button {
     background-color: var(--gb-accent) !important;
     color: var(--gb-on-accent) !important;
-    border-radius: 6px !important;
+    border-radius: var(--gnome-button-radius, 6px) !important;
     font-weight: 600 !important;
   }
 }
@@ -208,6 +208,16 @@
     url-prefix("about:preferences"),
     url-prefix("about:addons"),
     url-prefix("about:config"),
+    url-prefix("about:downloads"),
+    url-prefix("about:debugging"),
+    url-prefix("about:logins"),
+    url-prefix("about:policies"),
+    url-prefix("about:support"),
+    url-prefix("about:profiles"),
+    url-prefix("about:performance"),
+    url-prefix("about:telemetry"),
+    url-prefix("about:webrtc"),
+    url-prefix("about:processes"),
     url-prefix("about:newtab"),
     url-prefix("about:home") {
 
